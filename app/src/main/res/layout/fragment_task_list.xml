@@ -15,7 +15,18 @@
             android:id="@+id/hoge"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:onClick="@{v -> viewModel.onClick()}"
             android:text="hogehoge"/>
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/task_list_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+
+        </androidx.recyclerview.widget.RecyclerView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
