@@ -7,6 +7,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.room.Room
 import com.example.todoappwithfirebase.model.AppDatabase
 import com.example.todoappwithfirebase.model.Task
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.*
 
@@ -20,7 +21,7 @@ class MainActivity : AppCompatActivity() {
                 .build()
         val taskDao = database.taskDao()
         val task = Task(0, Date().time.toString())
-        lifecycleScope.launch {
+        lifecycleScope.launch(Dispatchers.IO) {
             taskDao.insert(task)
             Log.v("TAG", "after insert ${taskDao.getAll()}")
         }
