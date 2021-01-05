@@ -6,19 +6,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.databinding.DataBindingUtil
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todoappwithfirebase.MyViewModel
 import com.example.todoappwithfirebase.R
-import com.example.todoappwithfirebase.databinding.FragmentTaskListBinding
 import com.example.todoappwithfirebase.model.Task
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_task_list.*
-import kotlinx.android.synthetic.main.task_list_item.*
-import kotlinx.android.synthetic.main.task_list_item.task_item
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.*
@@ -30,9 +29,9 @@ class TaskListFragment : Fragment() {
 //    private lateinit var binding: FragmentTaskListBinding
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_task_list, container, false)
 //        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_task_list, container, false)
@@ -56,7 +55,10 @@ class TaskListFragment : Fragment() {
         viewModel.apply {
 
             getAllWords().observe(viewLifecycleOwner, {
-                Log.d("hoge", "onCreateView: database modified HOGE ${viewModel.getAllWords().value}")
+                Log.d(
+                    "hoge",
+                    "onCreateView: database modified HOGE ${viewModel.getAllWords().value}"
+                )
             })
         }
 
@@ -67,7 +69,6 @@ class TaskListFragment : Fragment() {
             Log.d("hoge", "onCreateView: hoge")
         }
 
-
         return view
     }
 
@@ -77,5 +78,10 @@ class TaskListFragment : Fragment() {
         viewModel.mAllWords.observe(viewLifecycleOwner, {
             viewAdapter.addData(task = it[0])
         })
+
+        fab.setOnClickListener {
+            Toast.makeText(context, "hoge", Toast.LENGTH_LONG).show()
+            findNavController().navigate(R.id.action_mainFragment_to_secondFragment)
+        }
     }
 }

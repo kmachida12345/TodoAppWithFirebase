@@ -14,7 +14,6 @@ class MyViewModel(application: Application): AndroidViewModel(application) {
     var mAllWords: LiveData<List<Task>>
 
     init {
-
         mAllWords = mRepository.getAllTasks()
     }
 
