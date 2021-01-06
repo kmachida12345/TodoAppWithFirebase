@@ -11,14 +11,8 @@ class MyViewModel(application: Application): AndroidViewModel(application) {
 
     private var mRepository: TaskRepository = TaskRepository(application)
 
-    var mAllWords: LiveData<List<Task>>
-
-    init {
-        mAllWords = mRepository.getAllTasks()
-    }
-
     fun getAllWords(): LiveData<List<Task>> {
-        return mAllWords
+        return mRepository.getAllTasks()
     }
 
     suspend fun insert(task: Task) {

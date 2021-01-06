@@ -16,8 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.todoappwithfirebase.MyViewModel
 import com.example.todoappwithfirebase.R
 import com.example.todoappwithfirebase.model.Task
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.fragment_task_list.*
+import kotlinx.android.synthetic.main.fragment_task_list.view.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.*
@@ -26,7 +25,6 @@ class TaskListFragment : Fragment() {
 
     private lateinit var viewAdapter: TaskListAdapter
     private val viewModel: MyViewModel by viewModels()
-//    private lateinit var binding: FragmentTaskListBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,21 +32,14 @@ class TaskListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_task_list, container, false)
-//        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_task_list, container, false)
 
         val viewManager = LinearLayoutManager(context)
 
         viewAdapter = TaskListAdapter()
 
         view.findViewById<RecyclerView>(R.id.my_recycler_view).apply {
-            // use this setting to improve performance if you know that changes
-            // in content do not change the layout size of the RecyclerView
             setHasFixedSize(true)
-
-            // use a linear layout manager
             layoutManager = viewManager
-
-            // specify an viewAdapter (see also next example)
             adapter = viewAdapter
         }
 
@@ -56,9 +47,15 @@ class TaskListFragment : Fragment() {
 
             getAllWords().observe(viewLifecycleOwner, {
                 Log.d(
-                    "hoge",
-                    "onCreateView: database modified HOGE ${viewModel.getAllWords().value}"
+                    "hoge", "onCreateView: database modified ${viewModel.getAllWords().value}"
                 )
+                if (viewAdapter.itemCount <= 0) {
+                    it.forEach {
+                        viewAdapter.addData(it)
+                    }
+                } else {
+                    viewAdapter.addData(it[it.lastIndex])
+                }
             })
         }
 
@@ -69,19 +66,11 @@ class TaskListFragment : Fragment() {
             Log.d("hoge", "onCreateView: hoge")
         }
 
-        return view
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        //データをSTARTED かRESUMED状態である場合にのみ、アップデートするように、LifecycleOwnerを紐付け、ライフサイクル内にオブザーバを追加
-        viewModel.mAllWords.observe(viewLifecycleOwner, {
-            viewAdapter.addData(task = it[0])
-        })
-
-        fab.setOnClickListener {
+        view.fab.setOnClickListener {
             Toast.makeText(context, "hoge", Toast.LENGTH_LONG).show()
             findNavController().navigate(R.id.action_mainFragment_to_secondFragment)
         }
+
+        return view
     }
 }
