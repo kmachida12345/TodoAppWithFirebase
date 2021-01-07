@@ -16,11 +16,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.todoappwithfirebase.MyViewModel
 import com.example.todoappwithfirebase.R
 import com.example.todoappwithfirebase.model.Task
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_task_list.view.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.*
 
+@AndroidEntryPoint
 class TaskListFragment : Fragment() {
 
     private lateinit var viewAdapter: TaskListAdapter
@@ -43,6 +45,30 @@ class TaskListFragment : Fragment() {
             adapter = viewAdapter
         }
 
+
+        view.findViewById<TextView>(R.id.hoge).setOnClickListener {
+            lifecycleScope.launch(Dispatchers.IO) {
+                viewModel.insert(Task(0, Date(System.currentTimeMillis()).toString()))
+            }
+            Log.d("hoge", "onCreateView: hoge")
+        }
+
+        view.fab.setOnClickListener {
+            Toast.makeText(context, "hoge", Toast.LENGTH_LONG).show()
+            findNavController().navigate(R.id.action_mainFragment_to_secondFragment)
+        }
+
+        return view
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+
         viewModel.apply {
 
             getAllWords().observe(viewLifecycleOwner, {
@@ -58,19 +84,5 @@ class TaskListFragment : Fragment() {
                 }
             })
         }
-
-        view.findViewById<TextView>(R.id.hoge).setOnClickListener {
-            lifecycleScope.launch(Dispatchers.IO) {
-                viewModel.insert(Task(0, Date(System.currentTimeMillis()).toString()))
-            }
-            Log.d("hoge", "onCreateView: hoge")
-        }
-
-        view.fab.setOnClickListener {
-            Toast.makeText(context, "hoge", Toast.LENGTH_LONG).show()
-            findNavController().navigate(R.id.action_mainFragment_to_secondFragment)
-        }
-
-        return view
     }
 }

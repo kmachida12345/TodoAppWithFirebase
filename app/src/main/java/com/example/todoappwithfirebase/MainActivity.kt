@@ -8,10 +8,12 @@ import androidx.lifecycle.lifecycleScope
 import androidx.room.Room
 import com.example.todoappwithfirebase.model.AppDatabase
 import com.example.todoappwithfirebase.model.Task
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.*
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
