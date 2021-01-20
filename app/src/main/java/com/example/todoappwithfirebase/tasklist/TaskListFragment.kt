@@ -58,6 +58,12 @@ class TaskListFragment : Fragment() {
             findNavController().navigate(R.id.action_mainFragment_to_secondFragment)
         }
 
+        viewAdapter.setOnItemClickListener(object: TaskListAdapter.OnItemClickListener{
+            override fun onItemClickListener(view: View, position: Int) {
+                findNavController().navigate(R.id.action_taskListFragment_to_taskDetailFragment)
+            }
+        })
+
         return view
     }
 
