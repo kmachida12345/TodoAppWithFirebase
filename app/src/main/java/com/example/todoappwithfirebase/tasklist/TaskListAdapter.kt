@@ -3,6 +3,7 @@ package com.example.todoappwithfirebase.tasklist
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -14,6 +15,11 @@ class TaskListAdapter: RecyclerView.Adapter<TaskListAdapter.TaskListViewHolder>(
 
     private val tasks = arrayListOf<Task>() // Cached copy of words
     private val myDataset = arrayListOf<Task>()
+    private lateinit var listener: OnItemClickListener
+
+    interface OnItemClickListener {
+        fun onItemClickListener(view: View, position: Int)
+    }
 
     class TaskListViewHolder(val binding: TaskListItemBinding) : RecyclerView.ViewHolder(binding.root) {
     }
@@ -30,6 +36,10 @@ class TaskListAdapter: RecyclerView.Adapter<TaskListAdapter.TaskListViewHolder>(
         // - replace the contents of the view with that element
         holder.binding.task = myDataset[position]
         holder.binding.executePendingBindings()
+
+        holder.binding.root.setOnClickListener {
+            listener.onItemClickListener(it, position)
+        }
     }
 
     override fun getItemCount(): Int {
@@ -40,5 +50,10 @@ class TaskListAdapter: RecyclerView.Adapter<TaskListAdapter.TaskListViewHolder>(
         myDataset.add(task)
         notifyDataSetChanged()
     }
+
+    fun setOnItemClickListener(listener: OnItemClickListener){
+        this.listener = listener
+    }
+
 
 }
