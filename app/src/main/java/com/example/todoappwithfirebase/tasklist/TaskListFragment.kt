@@ -16,8 +16,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.todoappwithfirebase.MyViewModel
 import com.example.todoappwithfirebase.R
 import com.example.todoappwithfirebase.model.Task
+import com.example.todoappwithfirebase.taskdetail.TaskDetailFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_task_list.view.*
+import kotlinx.android.synthetic.main.task_list_item.view.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.*
@@ -60,7 +62,8 @@ class TaskListFragment : Fragment() {
 
         viewAdapter.setOnItemClickListener(object: TaskListAdapter.OnItemClickListener{
             override fun onItemClickListener(view: View, position: Int) {
-                findNavController().navigate(R.id.action_taskListFragment_to_taskDetailFragment)
+                val action = TaskListFragmentDirections.actionTaskListFragmentToTaskDetailFragment(view.task_item.text.toString(), view.task_detail.text.toString())
+                findNavController().navigate(action)
             }
         })
 
