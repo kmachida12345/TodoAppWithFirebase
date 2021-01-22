@@ -7,6 +7,12 @@ import androidx.room.PrimaryKey
 data class Task(
     @PrimaryKey(autoGenerate = true)
     val id: Int,
-    val title: String
+    var title: String = "",
+    var description: String = "",
+    var updatedTime: Long = System.currentTimeMillis(),
+    var dueDate: Long = -1,
+    var dueTime: Long = -1,
+    var isDone: Boolean = false,
+
 ) {
 }
