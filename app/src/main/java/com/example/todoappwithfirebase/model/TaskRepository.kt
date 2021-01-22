@@ -8,12 +8,16 @@ class TaskRepository @Inject constructor(
 ) {
     private val taskDao: TaskDao by lazy { database.taskDao() }
 
-    suspend fun insert(task: Task) {
-        taskDao.insert(task)
+    suspend fun insert(task: Task): Long {
+        return taskDao.insert(task)
     }
 
     fun getAllTasks(): LiveData<List<Task>> {
         return taskDao.getAll()
+    }
+
+    suspend fun getTask(id: Long): Task {
+        return taskDao.getTask(id)
     }
 
 }

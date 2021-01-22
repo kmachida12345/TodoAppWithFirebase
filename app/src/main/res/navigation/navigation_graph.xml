@@ -31,11 +31,8 @@
         android:label="TaskDetailFragment" >
 
         <argument
-            android:name="taskTitle"
-            app:argType="string" />
-        <argument
-            android:name="taskDetail"
-            app:argType="string" />
+            android:name="taskId"
+            app:argType="long" />
     </fragment>
 
 </navigation>

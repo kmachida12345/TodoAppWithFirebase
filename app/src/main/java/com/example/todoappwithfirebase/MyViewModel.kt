@@ -15,8 +15,12 @@ class MyViewModel @ViewModelInject constructor(application: Application, private
         return mRepository.getAllTasks()
     }
 
-    suspend fun insert(task: Task) {
-        mRepository.insert(task)
+    suspend fun insert(task: Task): Long {
+        return mRepository.insert(task)
+    }
+
+    suspend fun getTask(id: Long): Task {
+        return mRepository.getTask(id)
     }
 
 }
