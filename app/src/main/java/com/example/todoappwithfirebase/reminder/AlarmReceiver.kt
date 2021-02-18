@@ -22,8 +22,6 @@ class AlarmReceiver: BroadcastReceiver() {
 
         val notificationId = 114514
 
-        // Create the NotificationChannel, but only on API 26+ because
-        // the NotificationChannel class is new and not in the support library
         val name = "channel name desu"
         val descriptionText = "channel no description desu"
         val importance = NotificationManager.IMPORTANCE_DEFAULT
