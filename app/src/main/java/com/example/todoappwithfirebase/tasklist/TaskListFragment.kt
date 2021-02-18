@@ -34,25 +34,36 @@ class TaskListFragment : Fragment() {
 
         viewAdapter = TaskListAdapter()
 
-        val itemTouchHelper = ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP, ItemTouchHelper.LEFT) {
-            override fun onMove(
-                recyclerView: RecyclerView,
-                viewHolder: RecyclerView.ViewHolder,
-                target: RecyclerView.ViewHolder
-            ): Boolean {
-                TODO("Not yet implemented")
-            }
-
-            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                TODO("Not yet implemented")
-            }
-
-        })
 
         view.findViewById<RecyclerView>(R.id.my_recycler_view).apply {
             setHasFixedSize(true)
             layoutManager = viewManager
             adapter = viewAdapter
+
+
+
+            val itemTouchHelper = ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP, ItemTouchHelper.LEFT) {
+                override fun onMove(
+                    recyclerView: RecyclerView,
+                    viewHolder: RecyclerView.ViewHolder,
+                    target: RecyclerView.ViewHolder
+                ): Boolean {
+                    val fromPosition = viewHolder?.adapterPosition ?: 0
+                    val toPosition = target?.adapterPosition ?: 0
+
+                    this@apply.adapter?.notifyItemMoved(fromPosition, toPosition)
+
+                    return true
+                }
+
+                override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                    viewHolder?.let {
+                        this@apply.adapter?.notifyItemRemoved(viewHolder.adapterPosition)
+                    }
+                }
+
+            })
+
             itemTouchHelper.attachToRecyclerView(this)
         }
 
