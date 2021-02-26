@@ -1,6 +1,7 @@
 package com.example.todoappwithfirebase.model
 
 import androidx.lifecycle.LiveData
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class TaskRepository @Inject constructor(
@@ -12,7 +13,7 @@ class TaskRepository @Inject constructor(
         return taskDao.insert(task)
     }
 
-    fun getAllTasks(): LiveData<List<Task>> {
+    fun getAllTasks(): Flow<List<Task>> {
         return taskDao.getAll()
     }
 

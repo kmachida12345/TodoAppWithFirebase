@@ -2,6 +2,7 @@ package com.example.todoappwithfirebase.model
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface TaskDao {
@@ -18,7 +19,7 @@ interface TaskDao {
     fun deleteAll()
 
     @Query("select * from tasks")
-    fun getAll(): LiveData<List<Task>>
+    fun getAll(): Flow<List<Task>>
 
     @Query("select * from tasks where id = :id")
     suspend fun getTask(id: Long): Task
