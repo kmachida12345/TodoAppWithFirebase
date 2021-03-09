@@ -13,8 +13,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todoappwithfirebase.MyViewModel
 import com.example.todoappwithfirebase.R
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_task_list.view.*
 
 @AndroidEntryPoint
 class TaskListFragment : Fragment() {
@@ -47,8 +47,8 @@ class TaskListFragment : Fragment() {
                     viewHolder: RecyclerView.ViewHolder,
                     target: RecyclerView.ViewHolder
                 ): Boolean {
-                    val fromPosition = viewHolder?.adapterPosition ?: 0
-                    val toPosition = target?.adapterPosition ?: 0
+                    val fromPosition = viewHolder.adapterPosition
+                    val toPosition = target.adapterPosition
 
                     this@apply.adapter?.notifyItemMoved(fromPosition, toPosition)
 
@@ -56,7 +56,7 @@ class TaskListFragment : Fragment() {
                 }
 
                 override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                    viewHolder?.let {
+                    viewHolder.let {
                         this@apply.adapter?.notifyItemRemoved(viewHolder.adapterPosition)
                     }
                 }
@@ -66,7 +66,7 @@ class TaskListFragment : Fragment() {
             itemTouchHelper.attachToRecyclerView(this)
         }
 
-        view.fab.setOnClickListener {
+        view.findViewById<FloatingActionButton>(R.id.fab).setOnClickListener {
             Toast.makeText(context, "hoge", Toast.LENGTH_LONG).show()
             findNavController().navigate(R.id.action_mainFragment_to_secondFragment)
         }

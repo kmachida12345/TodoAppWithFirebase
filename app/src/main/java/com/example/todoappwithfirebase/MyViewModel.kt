@@ -8,9 +8,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.asLiveData
 import com.example.todoappwithfirebase.model.Task
 import com.example.todoappwithfirebase.model.TaskRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-
-class MyViewModel @ViewModelInject constructor(application: Application, private val mRepository: TaskRepository): AndroidViewModel(application) {
+@HiltViewModel
+class MyViewModel @Inject constructor(application: Application, private val mRepository: TaskRepository): AndroidViewModel(application) {
 
     val tasks: LiveData<List<Task>>
         get() = _tasks
