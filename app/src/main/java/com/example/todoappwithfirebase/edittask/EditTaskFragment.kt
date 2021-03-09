@@ -38,6 +38,7 @@ class EditTaskFragment: Fragment() {
         val view = inflater.inflate(R.layout.fragment_edit_task, container, false)
 
 
+        // FIXME: DataBindingにかきかえ
         view.confirm.setOnClickListener {
             lifecycleScope.launch(Dispatchers.IO) {
 

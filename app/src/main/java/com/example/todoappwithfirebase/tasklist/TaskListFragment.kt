@@ -82,23 +82,16 @@ class TaskListFragment : Fragment() {
         return view
     }
 
-    override fun onResume() {
-        super.onResume()
-
-        viewModel.apply {
-
-            getAllWords().observe(viewLifecycleOwner, {
-                Log.d(
-                    "hoge", "onCreateView: database modified ${viewModel.getAllWords().value}"
-                )
-                if (viewAdapter.itemCount <= 0) {
-                    it.forEach {
-                        viewAdapter.addData(it)
-                    }
-                } else {
-                    viewAdapter.addData(it[it.lastIndex])
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewModel.tasks.observe(viewLifecycleOwner) { list ->
+            if (viewAdapter.itemCount <= 0) {
+                list.forEach {
+                    viewAdapter.addData(it)
                 }
-            })
+            } else {
+                viewAdapter.addData(list[list.lastIndex])
+            }
         }
     }
 }

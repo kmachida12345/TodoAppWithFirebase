@@ -28,12 +28,12 @@ class TaskDetailFragment: Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_task_detail, container, false)
 
-        lifecycleScope.launch(Dispatchers.IO) {
-            val task = viewModel.getTask(args.taskId)
-            launch(Dispatchers.Main) {
-                view?.task_title?.text = task.title
-            }
-        }
+//        lifecycleScope.launch(Dispatchers.IO) {
+//            val task = viewModel.getTask(args.taskId)
+//            launch(Dispatchers.Main) {
+//                view?.task_title?.text = task.title
+//            }
+//        }
 
         return view
     }
