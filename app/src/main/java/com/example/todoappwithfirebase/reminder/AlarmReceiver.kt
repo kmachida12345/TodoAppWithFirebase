@@ -2,23 +2,21 @@ package com.example.todoappwithfirebase.reminder
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
-import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.navigation.NavDeepLinkBuilder
 import com.example.todoappwithfirebase.MainActivity
 import com.example.todoappwithfirebase.R
-import com.example.todoappwithfirebase.taskdetail.TaskDetailFragmentArgs
+import timber.log.Timber
 
 class AlarmReceiver: BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
-        Log.d("hoge", "onReceive: ")
+        Timber.d("onReceive: ")
 
         val notificationId = 114514
 
@@ -36,7 +34,7 @@ class AlarmReceiver: BroadcastReceiver() {
         val bundle = Bundle()
         bundle.putLong("taskId", intent!!.getLongExtra("taskId", -1))
 
-        Log.d(TAG, "onReceive: hoge bundle=$bundle")
+        Timber.d("onReceive: hoge bundle=$bundle")
 
         val pendingIntent = NavDeepLinkBuilder(context)
             .setComponentName(MainActivity::class.java)

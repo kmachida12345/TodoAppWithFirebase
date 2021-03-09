@@ -1,7 +1,6 @@
 package com.example.todoappwithfirebase
 
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.AppLaunchChecker
 import androidx.lifecycle.lifecycleScope
