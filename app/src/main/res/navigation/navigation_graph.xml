@@ -22,7 +22,10 @@
         android:id="@+id/editTaskFragment"
         android:name="com.example.todoappwithfirebase.edittask.EditTaskFragment"
         tools:layout="@layout/fragment_edit_task"
-        android:label="SecondFragment" >
+        android:label="SecondFragment">
+        <action
+            android:id="@+id/action_editTaskFragment_to_taskListFragment"
+            app:destination="@id/taskListFragment" />
     </fragment>
     <fragment
         android:id="@+id/taskDetailFragment"
