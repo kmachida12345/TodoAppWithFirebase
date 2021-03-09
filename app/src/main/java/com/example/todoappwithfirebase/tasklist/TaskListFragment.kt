@@ -40,8 +40,8 @@ class TaskListFragment : Fragment() {
             adapter = viewAdapter
 
 
-
-            val itemTouchHelper = ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP, ItemTouchHelper.LEFT) {
+            val itemTouchHelper = ItemTouchHelper(object :
+                ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP, ItemTouchHelper.LEFT) {
                 override fun onMove(
                     recyclerView: RecyclerView,
                     viewHolder: RecyclerView.ViewHolder,
@@ -73,7 +73,8 @@ class TaskListFragment : Fragment() {
 
         viewAdapter.setOnItemClickListener(object : TaskListAdapter.OnItemClickListener {
             override fun onItemClickListener(id: Long) {
-                val action = TaskListFragmentDirections.actionTaskListFragmentToTaskDetailFragment(id)
+                val action =
+                    TaskListFragmentDirections.actionTaskListFragmentToTaskDetailFragment(id)
                 findNavController().navigate(action)
             }
         })
